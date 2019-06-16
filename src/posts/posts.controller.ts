@@ -1,4 +1,4 @@
-import { Controller, Get, Headers, Param } from '@nestjs/common';
+import { Controller, Get, Headers, Param, Post, Body } from '@nestjs/common';
 
 @Controller('posts')
 export class PostsController {
@@ -11,10 +11,16 @@ export class PostsController {
             }
         ];
     }
+
     @Get(':id')
     show(@Param() params ) {
         return {
             title: `Post ${params.id}`
         }
+    }
+
+    @Post()
+    store(@Body() body) {
+        console.log(body);
     }
 }
