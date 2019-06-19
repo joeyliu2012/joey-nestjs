@@ -1,4 +1,4 @@
-import { Controller, Get, Headers, Param, Post, Body, HttpException, HttpStatus, ForbiddenException, UseFilters, ValidationPipe, UsePipes, ParseIntPipe, UseGuards, SetMetadata, UseInterceptors } from '@nestjs/common';
+import { Controller, Get, Headers, Param, Post, Body, HttpException, HttpStatus, ForbiddenException, UseFilters, ValidationPipe, UsePipes, ParseIntPipe, UseGuards, SetMetadata, UseInterceptors, Req } from '@nestjs/common';
 import { CreatePostDto } from './post.dto';
 import { DemoService } from './providers/demo/demo.service';
 import { DemoFilter } from '../../core/filters/demo.filter';
@@ -7,6 +7,7 @@ import { Roles } from '../../core/decorators/roles.decorator';
 import { LogginInterceptor } from '../../core/interceptors/loggin.interceptor';
 import { TransformInterceptor } from '../../core/intereptors/transform.interceptor';
 import { ErrorsInterceptor } from '../../core/interceptors/errors.interceptor';
+import { User } from '../../core/decorators/user.decorator';
 
 @Controller('posts')
 // @UseFilters(DemoFilter)
@@ -36,7 +37,9 @@ export class PostsController {
     // @SetMetadata('roles', ['member'])
     @Roles('member')
     // @UseFilters(DemoFilter)
-    store(@Body() post: CreatePostDto) {
+    store(@Body() post: CreatePostDto, @User('demo') user) {
+        console.log(user);
+        
         // throw new HttpException('没有权限', HttpStatus.FORBIDDEN);
         // throw new ForbiddenException('没有权限');
         this.demoService.create(post);
