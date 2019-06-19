@@ -9,7 +9,7 @@ import { LogginInterceptor } from '../../core/interceptors/loggin.interceptor';
 @Controller('posts')
 // @UseFilters(DemoFilter)
 // @UseGuards(DemoAuthGuard)
-@UseInterceptors(LogginInterceptor)
+// @UseInterceptors(LogginInterceptor)
 export class PostsController {
     constructor(private readonly demoService: DemoService){}
 
