@@ -8,6 +8,7 @@ import { LogginInterceptor } from '../../core/interceptors/loggin.interceptor';
 import { TransformInterceptor } from '../../core/intereptors/transform.interceptor';
 import { ErrorsInterceptor } from '../../core/interceptors/errors.interceptor';
 import { User } from '../../core/decorators/user.decorator';
+import { DemoPipe } from '../../core/pipes/demo.pipe';
 
 @Controller('posts')
 // @UseFilters(DemoFilter)
@@ -25,7 +26,7 @@ export class PostsController {
     }
 
     @Get(':id')
-    show(@Param('id', ParseIntPipe) id ) {
+    show(@Param('id', ParseIntPipe, DemoPipe) id ) {
         console.log('id', typeof id);
         return {
             title: `Post ${id}`
