@@ -1,5 +1,6 @@
-import { Controller, Post, Body, Get } from '@nestjs/common';
+import { Controller, Post, Body, Get, Param } from '@nestjs/common';
 import { PostService } from './post.service';
+import { async } from 'rxjs/internal/scheduler/async';
 
 @Controller('posts')
 export class PostController {
@@ -15,6 +16,11 @@ export class PostController {
     @Get()
     async index() {
         return await this.postService.index();
+    }
+
+    @Get(':id')
+    async show(@Param('id') id: string) {
+        return await this.postService.show(id);
     }
 
 }
