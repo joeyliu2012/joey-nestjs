@@ -59,4 +59,12 @@ export class PostService {
         .of(user)
         .remove({id});
     }
+
+    async liked(id: number) {
+        return await this.postRepository
+            .createQueryBuilder()
+            .relation(Post, 'liked')
+            .of(id)
+            .loadMany()
+    }
 }
