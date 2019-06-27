@@ -8,7 +8,6 @@ import { AuthModule } from './modules/auth/auth.module';
 import { CategoryModule } from './modules/category/category.module';
 import { TagModule } from './modules/tag/tag.module';
 import { CommentModule } from './modules/comment/comment.module';
-import { ServiceController } from './modules/service/service.controller';
 
 @Module({
   imports: [
@@ -20,7 +19,7 @@ import { ServiceController } from './modules/service/service.controller';
     TagModule,
     CommentModule
   ],
-  controllers: [AppController, ServiceController],
+  controllers: [AppController],
   providers: [AppService],
 })
 export class AppModule {}

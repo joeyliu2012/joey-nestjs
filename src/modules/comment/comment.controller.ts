@@ -15,7 +15,7 @@ export class CommentController {
     @UseGuards(AuthGuard())
     @UseInterceptors(ClassSerializerInterceptor)
     async storePostComment(
-        @Param(' id', ParseIntPipe) id: number,
+        @Param('id', ParseIntPipe) id: number,
         @Body() data: CommentDto,
         @User() user: UserEntity
     ) {
