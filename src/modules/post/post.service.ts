@@ -78,7 +78,12 @@ export class PostService {
 
        queryBuilder
         .take(limit)
-        .skip(limit * (page-1))
+        .skip(limit * (page-1));
+
+       queryBuilder
+        .orderBy({
+            'post.created': 'DESC'
+        });
 
        const entities = queryBuilder.getManyAndCount();
        return entities;
