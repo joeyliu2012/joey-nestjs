@@ -1,6 +1,7 @@
-import { Controller, Post, Body } from '@nestjs/common';
+import { Controller, Post, Body, Put, Param, ParseIntPipe } from '@nestjs/common';
 import { RoleService } from './role.service';
 import { RoleDto } from './role.dto';
+import { UserDto } from '../user/user.dto';
 
 @Controller('roles')
 export class RoleController {
@@ -12,5 +13,4 @@ export class RoleController {
     ) {
         return await this.roleService.store(data);
     }
-
 }
