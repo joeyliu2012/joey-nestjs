@@ -1,8 +1,8 @@
-import { Entity, PrimaryColumn, Column } from "typeorm";
+import { Entity, Column, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()
 export class File {
-    @PrimaryColumn()
+    @PrimaryGeneratedColumn()
     id: number;
 
     @Column()
@@ -12,7 +12,7 @@ export class File {
     filename: string;
 
     @Column()
-    MimeType: string;
+    mimetype: string;
 
     @Column()
     size: number;  
