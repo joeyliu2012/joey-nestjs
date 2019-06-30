@@ -1,7 +1,6 @@
 import { Controller, Post, Body, Put, Param, ParseIntPipe, Delete } from '@nestjs/common';
 import { TagService } from './tag.service';
-import { async } from 'rxjs/internal/scheduler/async';
-import { TagDto } from '../../../dist/modules/tag/tag.dto';
+import { TagDto } from '../../modules/tag/tag.dto';
 
 @Controller('tags')
 export class TagController {
