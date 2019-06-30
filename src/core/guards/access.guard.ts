@@ -1,28 +1,36 @@
 import { CanActivate, ExecutionContext, Injectable } from '@nestjs/common';
-import { Observable } from 'rxjs';
 import { Reflector } from '@nestjs/core';
 import { PermissionInterface } from '../interceptors/permission.interface';
 import { User } from '../../modules/user/user.entity';
+import { Possession } from '../enums/possession.enum';
+import { UserService } from '../../modules/user/user.service';
 
 @Injectable()
 export class AccessGuard implements CanActivate {
   constructor(
-    private readonly reflector: Reflector
+    private readonly reflector: Reflector,
+    private readonly userService: UserService
   ) {}
 
   async validatePermissions (
     permissions: PermissionInterface[],
-    user: User
+    user: User,
+    resourceId: number
   ) {
     const results = permissions.map(async permission => {
-      const {role} = permission;
-      let hasRole: boolean;
+      const {role, resource, possession } = permission;
+      let hasRole: boolean = true;
+      let hasPossession: boolean = true;
+
+      if(possession === Possession.OWN) {
+        hasPossession = await this.userService.possess(user.id, resource, resourceId);
+      }
 
       if(role) {
         hasRole = user.roles.some(userRole => userRole.name === role);
       }
 
-      return hasRole;
+      return hasRole && hasPossession;
     });
     return Promise.all(results);
   }
@@ -38,7 +46,8 @@ export class AccessGuard implements CanActivate {
 
     const results = await this.validatePermissions(
       permissions,
-      request.user
+      request.user,
+      parseInt(request.params.id)
     );
 
     return results.includes(true);
